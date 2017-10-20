@@ -11,10 +11,16 @@ class MetricSummaryRequest implements RequestInterface
     const TYPE_CTR = 'ctr';
     const TYPE_ECPM = 'ecpm';
     const TYPE_ECPC = 'ecpc';
-    const TYPE_LTV = 'ltv';
-    const TYPE_CHURN = 'churn';
 
     protected $params = [];
+
+    /**
+     * @param string $type
+     */
+    public function __construct($type)
+    {
+        $this->setType($type);
+    }
 
     /**
      * @param string $type

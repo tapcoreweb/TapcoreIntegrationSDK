@@ -39,13 +39,13 @@ class ApplicationsRequest implements RequestInterface
     }
 
     /**
-     * @param string $packageName
+     * @param string $package
      *
      * @return $this
      */
-    public function setPackageName($packageName)
+    public function setPackage($package)
     {
-        $this->params['package'] = (string) $packageName;
+        $this->params['package'] = (string) $package;
 
         return $this;
     }

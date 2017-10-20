@@ -11,8 +11,6 @@ class StatisticsRequest implements RequestInterface
     const TYPE_CTR = 'ctr';
     const TYPE_ECPM = 'ecpm';
     const TYPE_ECPC = 'ecpc';
-    const TYPE_LTV = 'ltv';
-    const TYPE_CHURN = 'churn';
 
     protected $params = [];
 
