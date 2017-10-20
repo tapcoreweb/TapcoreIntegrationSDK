@@ -402,7 +402,7 @@ class Application implements EntityInterface
         $item->onMarket = ArrayHelper::valueString($data, 'on_market');
         $item->createdAt = ArrayHelper::valueDateTime($data, 'created_at');
         $item->updatedAt = ArrayHelper::valueString($data, 'updated_at');
-        $item->googlePlayInstall = ArrayHelper::valueString($data, 'google_play_install');
+        $item->googlePlayInstall = ArrayHelper::valueBool($data, 'google_play_install');
         $item->silent = ArrayHelper::valueBool($data, 'silent');
         $item->mediator = ArrayHelper::valueBool($data, 'mediator');
         $item->checkMultiPiracy = ArrayHelper::valueBool($data, 'check_multi_piracy');

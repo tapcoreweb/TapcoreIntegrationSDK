@@ -11,7 +11,7 @@ class ArrayHelper
      *
      * @return mixed
      */
-    public static function value(array &$array, $key, $defaultValue = null)
+    public static function value(array $array, $key, $defaultValue = null)
     {
         return array_key_exists($key, $array) ? $array[$key] : $defaultValue;
     }
@@ -23,7 +23,7 @@ class ArrayHelper
      *
      * @return int|null
      */
-    public static function valueInt(array &$array, $key, $defaultValue = null)
+    public static function valueInt(array $array, $key, $defaultValue = null)
     {
         return array_key_exists($key, $array)
             ? (int) $array[$key]
@@ -37,7 +37,7 @@ class ArrayHelper
      *
      * @return string|null
      */
-    public static function valueString(array &$array, $key, $defaultValue = null)
+    public static function valueString(array $array, $key, $defaultValue = null)
     {
         return array_key_exists($key, $array)
             ? (string) $array[$key]
@@ -51,7 +51,7 @@ class ArrayHelper
      *
      * @return float|null
      */
-    public static function valueFloat(array &$array, $key, $defaultValue = null)
+    public static function valueFloat(array $array, $key, $defaultValue = null)
     {
         return array_key_exists($key, $array)
             ? (float) $array[$key]
@@ -65,11 +65,29 @@ class ArrayHelper
      *
      * @return bool|null
      */
-    public static function valueBool(array &$array, $key, $defaultValue = null)
+    /**
+     * @param array $array
+     * @param string $key
+     * @param bool|null $defaultValue
+     * @param bool $strict
+     * @return bool|null
+     */
+    public static function valueBool(array $array, $key, $defaultValue = null, $strict = false)
     {
-        return array_key_exists($key, $array)
-            ? (bool) $array[$key]
-            : (null === $defaultValue ? null : (bool) $defaultValue);
+        if (!array_key_exists($key, $array) || null === $array[$key]) {
+            return $defaultValue;
+        }
+
+        $value = $array[$key];
+        if (is_bool($value)) {
+            return $value;
+        }
+
+        if (!$strict && !is_numeric($value)) {
+            $value = $value === 'true' ? true : false;
+        }
+
+        return (bool) $value;
     }
 
     /**
@@ -79,9 +97,15 @@ class ArrayHelper
      *
      * @return \DateTime|null
      */
-    public static function valueDate(array &$array, $key, \DateTime $defaultValue = null)
+    public static function valueDate(array $array, $key, \DateTime $defaultValue = null)
     {
-        return self::valueDateTimeFromFormat($array, $key, "Y-m-d", $defaultValue);
+        $date = self::valueDateTimeFromFormat($array, $key, "Y-m-d", $defaultValue);
+
+        if ($date instanceof \DateTime) {
+            $date->setTime(0, 0, 0);
+        }
+
+        return $date;
     }
 
     /**
@@ -92,7 +116,7 @@ class ArrayHelper
      *
      * @return \DateTime|null
      */
-    public static function valueDateTimeFromFormat(array &$array, $key, $format, \DateTime $defaultValue = null)
+    public static function valueDateTimeFromFormat(array $array, $key, $format, \DateTime $defaultValue = null)
     {
         return array_key_exists($key, $array)
             ? \DateTime::createFromFormat($format, $array[$key])
@@ -106,7 +130,7 @@ class ArrayHelper
      *
      * @return \DateTime|null
      */
-    public static function valueDateTime(array &$array, $key, \DateTime $defaultValue = null)
+    public static function valueDateTime(array $array, $key, \DateTime $defaultValue = null)
     {
         return self::valueDateTimeFromFormat($array, $key, "Y-m-d H:i:s", $defaultValue);
     }
