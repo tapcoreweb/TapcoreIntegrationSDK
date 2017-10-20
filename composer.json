@@ -1,6 +1,7 @@
 {
-    "name": "tapcore/dashboard-sdk",
-    "description": "SDK for Tapcore.com API",
+    "name": "tapcore/integration-sdk",
+    "version": "0.1.0",
+    "description": "SDK for Tapcore.com Integration API",
     "authors": [
         {
             "name": "Tapcore Team",
