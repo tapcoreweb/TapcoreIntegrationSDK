@@ -6,6 +6,7 @@ use Tapcore\Integration\Client\Buzz\Request;
 use Tapcore\Integration\Client\Request\ApplicationsRequest;
 use Tapcore\Integration\Client\Request\CreateApplicationRequest;
 use Tapcore\Integration\Entity\Application;
+use Tapcore\Integration\Entity\ApplicationList;
 use Tapcore\Integration\Exception\Exception as SDKException;
 
 class ApplicationClient extends BaseClient
@@ -13,7 +14,7 @@ class ApplicationClient extends BaseClient
     /**
      * @param ApplicationsRequest|null $request
      *
-     * @return Application[]
+     * @return ApplicationList
      * @throws SDKException
      */
     public function getApplications(ApplicationsRequest $request = null)
@@ -30,13 +31,18 @@ class ApplicationClient extends BaseClient
 
         $data = (array) $response->getData();
 
-        $result = [];
+        $applications = [];
 
         foreach ($data as $item) {
-            $result[] = Application::createFromResponseData((array) $item);
+            $applications[] = Application::createFromResponseData((array) $item);
         }
 
-        return $result;
+        return new ApplicationList(
+            $applications,
+            $response->getExtraHeaders()->getPage(),
+            $response->getExtraHeaders()->getPageSize(),
+            $response->getExtraHeaders()->getTotalCount()
+        );
     }
 
     /**

@@ -6,6 +6,7 @@ use Buzz\Message\Request;
 use Tapcore\Integration\Client\Request\TransactionsRequest;
 use Tapcore\Integration\Entity\Publisher;
 use Tapcore\Integration\Entity\Transaction;
+use Tapcore\Integration\Entity\TransactionList;
 use Tapcore\Integration\Exception\Exception as SDKException;
 
 class ProfileClient extends BaseClient
@@ -46,7 +47,7 @@ class ProfileClient extends BaseClient
     /**
      * @param TransactionsRequest|null $request
      *
-     * @return Transaction[]
+     * @return TransactionList
      * @throws SDKException
      */
     public function getTransactions(TransactionsRequest $request = null)
@@ -63,12 +64,17 @@ class ProfileClient extends BaseClient
 
         $data = (array) $response->getData();
 
-        $result = [];
+        $transactions = [];
 
         foreach ($data as $item) {
-            $result[] = Transaction::createFromResponseData((array) $item);
+            $transactions[] = Transaction::createFromResponseData((array) $item);
         }
 
-        return $result;
+        return new TransactionList(
+            $transactions,
+            $response->getExtraHeaders()->getPage(),
+            $response->getExtraHeaders()->getPageSize(),
+            $response->getExtraHeaders()->getTotalCount()
+        );
     }
 }
