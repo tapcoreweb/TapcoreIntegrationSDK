@@ -107,7 +107,7 @@ $file = $client->downloadGameMakerStudio2Certificate($app);
 $request = (new WrapApplicationRequest())
     ->setMode(WrapApplicationRequest::MODE_AUTO)
     ->setSilentTime(86400)
-    ->setApkFromFile('/path/to/file.apk')
+    ->setApkFromFile('/path/to/file.apk');
 $build = $client->startApplicationWrap($app, $request);
 
 // Get status of current APK wrapping build (last)
