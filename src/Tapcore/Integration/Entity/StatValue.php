@@ -19,6 +19,38 @@ class StatValue implements EntityInterface
     protected $previousValue = 0;
 
     /**
+     * @return \DateTime
+     */
+    public function getCurrentDatetime()
+    {
+        return $this->currentDatetime;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getPreviousDatetime()
+    {
+        return $this->previousDatetime;
+    }
+
+    /**
+     * @return float|int
+     */
+    public function getCurrentValue()
+    {
+        return $this->currentValue;
+    }
+
+    /**
+     * @return float|int
+     */
+    public function getPreviousValue()
+    {
+        return $this->previousValue;
+    }
+
+    /**
      * @param array $data
      *
      * @return $this
