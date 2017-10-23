@@ -32,4 +32,12 @@ class PublisherTest extends TestCase
         $this->assertEquals(new \DateTime($source['updated_at']), $publisher->getUpdatedAt());
         $this->assertInstanceOf(MoneySummary::class, $publisher->getMoney());
     }
+
+    public function testSetName()
+    {
+        $publisher = new Publisher();
+        $publisher->setName('test name');
+
+        $this->assertSame('test name', $publisher->getName());
+    }
 }
