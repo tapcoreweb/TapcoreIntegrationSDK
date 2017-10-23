@@ -28,7 +28,7 @@ class Build implements EntityInterface
     /** @var string */
     protected $status;
 
-    /** @var string */
+    /** @var int */
     protected $errorCode;
 
     /** @var \DateTime */
@@ -74,7 +74,7 @@ class Build implements EntityInterface
     }
 
     /**
-     * @return string
+     * @return int
      */
     public function getErrorCode()
     {
@@ -108,7 +108,7 @@ class Build implements EntityInterface
 
         $item->id = ArrayHelper::valueInt($data, 'id');
         $item->status = ArrayHelper::valueString($data, 'status');
-        $item->errorCode = ArrayHelper::valueString($data, 'error_code');
+        $item->errorCode = ArrayHelper::valueInt($data, 'error_code');
         $item->createdAt = ArrayHelper::valueDateTime($data, 'created_at');
         $item->updatedAt = ArrayHelper::valueDateTime($data, 'updated_at');
 
