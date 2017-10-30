@@ -2,6 +2,20 @@
 
 API Specification: https://alpha.my.tapcore.com/api/1.0/specification
 
+## Installation
+
+The recommended way to install Tapcore Integration SDK is through [Composer](http://getcomposer.org).
+
+```bash
+curl -sS https://getcomposer.org/installer | php
+```
+
+Then, run the Composer command to install the latest version:
+
+```bash
+composer.phar require tapcore/integration-sdk
+```
+
 ## Examples
 
 ### Profile Client
